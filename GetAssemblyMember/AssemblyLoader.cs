@@ -65,9 +65,6 @@ namespace GetAssemblyMember
 
             List<string> propertys = new List<string>();
 
-
-
-
             foreach (Type type in types)
             {
                 if (type.IsClass)
