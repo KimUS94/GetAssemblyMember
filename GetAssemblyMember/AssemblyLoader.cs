@@ -51,19 +51,20 @@ namespace GetAssemblyMember
             return obj;
         }
 
-        public void GetAsmMembers()
+        public System.Text.StringBuilder GetAsmMembers()
         {
             Type[] types = this.m_Assembly.GetTypes();
 
-            List<string> constructors = new List<string>();
-            List<string> events = new List<string>();
-            List<string> fields = new List<string>();
+            //List<string> constructors = new List<string>();
+            //List<string> events = new List<string>();
+            //List<string> fields = new List<string>();
 
-            List<string> usrMethods = new List<string>();
-            List<string> sysMethods = new List<string>();
+            //List<string> usrMethods = new List<string>();
+            //List<string> sysMethods = new List<string>();
 
+            //List<string> propertys = new List<string>();
 
-            List<string> propertys = new List<string>();
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
             foreach (Type type in types)
             {
@@ -75,15 +76,18 @@ namespace GetAssemblyMember
                         switch (member.MemberType)
                         {
                             case MemberTypes.Constructor:
-                                constructors.Add(member.Name);
+                                //constructors.Add(member.Name);
+                                sb.Append("\n[Constructor] :\t" + member.Name);
                                 break;
 
                             case MemberTypes.Event:
-                                events.Add(member.Name);
+                                //events.Add(member.Name);
+                                sb.Append("\n[Event] :\t" + member.Name);
                                 break;
 
                             case MemberTypes.Field:
-                                fields.Add(member.Name);
+                                //fields.Add(member.Name);
+                                sb.Append("\n[Field] :\t" + member.Name);
                                 break;
 
                             case MemberTypes.Method:
@@ -93,24 +97,28 @@ namespace GetAssemblyMember
                                 if (member.DeclaringType.FullName != "System.Object")
                                 {
                                     //User Function
-                                    usrMethods.Add(member.Name);
+                                    //usrMethods.Add(member.Name);
+                                    sb.Append("\n[UsrFunction] :\t" + member.Name);
                                 }
                                 else
                                 {
                                     //Sysmtem Function
-                                    sysMethods.Add(member.Name);
+                                    //sysMethods.Add(member.Name);
+                                    sb.Append("\n[SysFunction] :\t" + member.Name);
                                 }
                                 break;
 
                             case MemberTypes.Property:
-                                propertys.Add(member.Name);
+                                //propertys.Add(member.Name);
+                                sb.Append("\n[Property] :\t" + member.Name);
                                 break;
                         }
                     }
                 }
             
             }
-            
+
+            return sb;
         }
     }
 }

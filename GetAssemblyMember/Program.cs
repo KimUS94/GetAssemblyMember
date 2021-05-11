@@ -19,6 +19,8 @@ namespace GetAssemblyMember
         {
             try
             {
+                System.Text.StringBuilder sb = new StringBuilder();
+
                 AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
                 AppDomain newDomain = AppDomain.CreateDomain("NewDom", AppDomain.CurrentDomain.Evidence, setup);
 
@@ -27,11 +29,20 @@ namespace GetAssemblyMember
                 AssemblyLoader loader = (AssemblyLoader)obj.Unwrap();
                 loader.Load(asmPath);
 
+                sb = loader.GetAsmMembers();                
 
-                loader.GetAsmMembers();
+
+                Console.WriteLine(sb.ToString().Trim('\n'));
+
+                Console.WriteLine("\n\nPlz enter the key..");
+                Console.ReadKey();
+
+
+
+                // ※ 주의
                 // main AppDomain에서 Type형 변수에 Read한 Assembly의 Type객체를 대입하게되면
                 // 내부적으로 Assembly Load가 발생하게 된다.
-                //Type type = loader.GetType();
+                // Type type = loader.GetType();
             }
             catch (AppDomainUnloadedException ex)
             {
